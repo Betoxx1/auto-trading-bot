@@ -1,2 +1,3 @@
+<?php
 $HitBtcAPI="HERE_YOUR_APIKEY";		//Llaves de API suministradas por el portal
 $HitBtcSECRET="HERE_YOUR_APISECRET";	//Llaves de API suministradas por el portal

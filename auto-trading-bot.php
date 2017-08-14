@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 include ("vendor/autoload.php");
-require ("config.php");
+require ("include/config.php");
 
 //Si no recibe la moneda a operar pregunta por ella
 if (@$argv[1]=="")
