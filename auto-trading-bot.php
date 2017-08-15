@@ -21,10 +21,10 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,MA 02110-1301,USA.
 */
 
-include ("vendor/autoload.php");
-require ("include/config.php");
-require ("include/zconsola.php");
-require ("include/zapi-hitbtc.php");
+require ("include/config.php");						//Configuracion personal de llaves de API
+require ("include/zconsola.php");					//Funciones para impresion a consolas basicas (CLI)
+include ("vendor-".$API_Trader."/autoload.php");	//Dependencias de la API seleccionada para operar
+require ("include/zapi-".$API_Trader.".php");		//Funciones propias para operar el mercado con la API especificada
 
 
 //Si no recibe la moneda a operar pregunta por ella

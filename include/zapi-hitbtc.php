@@ -59,8 +59,8 @@
 //Pone una orden compra o venta en el mercado Ej:EstablecerOrden("COMPRA","BCNBTC","1","0.0000010102");
 function EstablecerOrden($TipoOperacion,$CriptoMoneda,$Cantidad,$Valor)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		$newOrder = new \Hitbtc\Model\NewOrder();
 		if ($TipoOperacion=="VENTA")
 			$newOrder->setSide($newOrder::SIDE_SELL);
@@ -90,8 +90,8 @@ function EstablecerOrden($TipoOperacion,$CriptoMoneda,$Cantidad,$Valor)
 //######################################################################
 function ObtenerSaldoTrading($CriptoMoneda,$TipoSaldo="DISPONIBLE")
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		
 		try {
 			foreach ($client->getBalanceTrading() as $balance) {
@@ -116,8 +116,8 @@ function ObtenerSaldoTrading($CriptoMoneda,$TipoSaldo="DISPONIBLE")
 //######################################################################
 function ObtenerSaldoMain($CriptoMoneda)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		try {
 			foreach ($client->getBalanceMain() as $balance) {
 				if ($balance->getCurrency() == $CriptoMoneda)
@@ -135,8 +135,8 @@ function ObtenerSaldoMain($CriptoMoneda)
 //######################################################################
 function TransferirSaldo_TradingAMain($CriptoMoneda,$Cantidad)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		try {
 			$tnxId = $client->transferToMain($CriptoMoneda, $Cantidad);
 		} catch (\Hitbtc\Exception\InvalidRequestException $e) {
@@ -151,8 +151,8 @@ function TransferirSaldo_TradingAMain($CriptoMoneda,$Cantidad)
 //######################################################################
 function TransferirSaldo_MainATrading($CriptoMoneda,$Cantidad)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		try {
 			$tnxId = $client->transferToTrading($CriptoMoneda, $Cantidad);
 		} catch (\Hitbtc\Exception\InvalidRequestException $e) {
@@ -167,8 +167,8 @@ function TransferirSaldo_MainATrading($CriptoMoneda,$Cantidad)
 //######################################################################
 function VerOrdenesActivas()
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		print_r($client->getActiveOrders());
 	}
 
@@ -177,8 +177,8 @@ function VerOrdenesActivas()
 //######################################################################
 function VerOrdenesRecientes()
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		print_r($client->getRecentOrders());
 	}
 
@@ -187,8 +187,8 @@ function VerOrdenesRecientes()
 //######################################################################
 function VerTransacciones()
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		print_r($client->getTransactions());
 	}
 
@@ -197,8 +197,8 @@ function VerTransacciones()
 //######################################################################
 function VerTrading($DivisaComparadoraMercado)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
 		print_r($client->getTrades("$DivisaComparadoraMercado"));
 	}
 
@@ -207,8 +207,8 @@ function VerTrading($DivisaComparadoraMercado)
 //######################################################################
 function ObtenerLimiteVenta($CriptoMoneda)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
         $response = $client->getHttpClient()->get('/api/1/public/'.$CriptoMoneda.'/ticker', array('exceptions' => false));
         $document = $response->json();
 		return $document["ask"];		
@@ -219,8 +219,8 @@ function ObtenerLimiteVenta($CriptoMoneda)
 //######################################################################
 function ObtenerLimiteCompra($CriptoMoneda)
 	{
-		global $HitBtcAPI,$HitBtcSECRET;
-		$client = new \Hitbtc\ProtectedClient($HitBtcAPI, $HitBtcSECRET, $demo = false);
+		global $APIKEY_Trader,$APISECRET_Trader;
+		$client = new \Hitbtc\ProtectedClient($APIKEY_Trader, $APISECRET_Trader, $demo = false);
         $response = $client->getHttpClient()->get('/api/1/public/'.$CriptoMoneda.'/ticker', array('exceptions' => false));
         $document = $response->json();
 		//print_r($client->getLimiteVenta($CriptoMoneda));
