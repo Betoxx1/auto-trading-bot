@@ -51,6 +51,16 @@
 		ARDRBTC		1 ARDR		0.000000001
 		ZECBTC		0.001 ZEC	0.000001
 		WAVESBTC	0.01 WAVES	0.0000001
+
+	OTRAS FUNCIONES DISPONIBLES (API de supervivencia):
+		echo ObtenerSaldoTrading("BCN","RESERVADO");	//DISPONIBLE|RESERVADO
+		TransferirSaldo_MainATrading("BCN",100);
+		TransferirSaldo_TradingAMain("BCN",100);
+		VerOrdenesRecientes();
+		VerOrdenesActivas();
+		ObtenerSaldoMain("XDN");
+		VerTransacciones();
+		VerTrading("BCNBTC");
 */
 
 

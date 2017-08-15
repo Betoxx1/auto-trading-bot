@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 /*				  
 	AUTO-TRADING-BOT						Copyright (C) 2017

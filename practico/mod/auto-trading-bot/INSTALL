@@ -1,0 +1,45 @@
+
+	AUTO-TRADING-BOT						Copyright (C) 2017
+	----------------						John F. Arroyave Gutiérrez
+	                					  	unix4you2@gmail.com
+	                					  	www.practico.org
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>
+                                      
+------------------------------------------------------------------------
+INSTALACION:
+
+MODO 1: Instalacion independiente (StandAlone):
+------
+	1) Descomprimir el comprimido sobre su máquina, no requiere servidor
+	   web ni base de datos.   Solamente PHP 7.0+
+   
+	2) Actualizar include/config.php.dist con las configuraciones 
+	   correspondientes a su portal de trading y renombrelo a config.php
+   
+	3) Ingresar hasta el path correspondiente y ejecutar mediante
+	   consola el bot:  php auto-trading-bot.php
+
+MODO 2: Integracion con Practico Framework (Como modulo):
+------
+	1) Simplemente descomprima sobre su carpeta de modulos del framework
+	   y haga la importanción de los XML correspondientes a formularios
+	   e informes de la aplicación.
+
+
+------------------------------------------------------------------------
+## Desinstalación:
+
+  Simplemente elimine todos los archivos bajo el directorio de
+  instalación en su maquina
