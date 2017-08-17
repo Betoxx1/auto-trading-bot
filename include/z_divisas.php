@@ -53,6 +53,7 @@ if ($MonedaSeleccionadaOperacion=="BCN")
 															//Ej:  Para realizar una operacion de venta de un bloque (1) BCN se requieren minimo (100) BCN.  Es el bloque minimo a negociar
 															//	   Si se va entonces a negociar bloques de 2 entonces se debe subir a 200 el $SaldoMinimoTrading
 		$SaldoMinimoTrading=$TamanoBloqueTrading*100;		//Cantidad minima que se debe tener de la divisa a negociar para poder solicitar una venta de esta.  ESTA FORMULA PODRIA CAMBIAR POR CADA DIVISA!!!
+		$CantMovimientosTendenciaEstable=5;					//Para motor de inferencia basado en tendencia (a la alza o baja) determina cuantos movimientos del mismo tipo son considerados para establecer una tendencia de moneda 
 	}
 
 if ($MonedaSeleccionadaOperacion=="ETH")
@@ -69,10 +70,11 @@ if ($MonedaSeleccionadaOperacion=="ETH")
 		$SaldoResidualSoporte=".00001";
 		$TamanoBloqueTrading="0.1";										
 		$SaldoMinimoTrading=$TamanoBloqueTrading*1;
+		$CantMovimientosTendenciaEstable=5;
 	}
 
 if ($MonedaValida==0)
 	{
-		echo "Moneda no seleccionada";
+		echo "Moneda incorrecta o no seleccionada";
 		die();
 	}

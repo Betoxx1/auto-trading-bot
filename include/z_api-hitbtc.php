@@ -52,15 +52,19 @@
 		ZECBTC		0.001 ZEC	0.000001
 		WAVESBTC	0.01 WAVES	0.0000001
 
-	OTRAS FUNCIONES DISPONIBLES (API de supervivencia):
-		echo ObtenerSaldoTrading("BCN","RESERVADO");	//DISPONIBLE|RESERVADO
-		TransferirSaldo_MainATrading("BCN",100);
-		TransferirSaldo_TradingAMain("BCN",100);
-		VerOrdenesRecientes();
+	DICCIONARIO DE FUNCIONES DISPONIBLES (API de supervivencia):		EJEMPLO DE PARAMETROS
+	-------------------------------------------------------------------------------------------------------------
+		EstablecerOrden(TipoOperacion,CriptoMoneda,Cantidad,Valor)		"VENTA|COMPRA","BCN","100","0.0000003225"
+		ObtenerSaldoTrading(CriptoMoneda,TipoSaldo);					"BCN","DISPONIBLE|RESERVADO"
+		ObtenerSaldoMain(CriptoMoneda);									"BCN"
+		TransferirSaldo_TradingAMain(CriptoMoneda,Cantidad)				"BCN",100
+		TransferirSaldo_MainATrading(CriptoMoneda,Cantidad)				"BCN",100
 		VerOrdenesActivas();
-		ObtenerSaldoMain("XDN");
+		VerOrdenesRecientes();
 		VerTransacciones();
-		VerTrading("BCNBTC");
+		VerTrading(DivisaComparadoraMercado);							"BCNBTC"
+		ObtenerLimiteVenta(CriptoMoneda)								"BCN"
+		ObtenerLimiteCompra(CriptoMoneda)								"BCN"
 */
 
 
