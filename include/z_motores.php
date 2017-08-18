@@ -83,10 +83,10 @@ function OperarDivisa_InferenciaSimple($MonedaOperar,$DivisaComparadoraMercado,$
 							{
 								$IdOrdenCompra=EstablecerOrden("COMPRA","$DivisaComparadoraMercado","$TamanoBloqueTrading",number_format($ValorIdealCompra,$DecimalesPrecision));
 								ColorTextoConsola("black","green");
-								echo "\n\r  Creando orden  COMPRA: #$IdOrdenCompra     VALOR      ".number_format($ValorIdealCompra,$DecimalesPrecision);
+								echo "\n\r  Creando orden  COMPRA: #$IdOrdenCompra     VALOR      ".number_format($ValorIdealCompra,$DecimalesPrecision)." CANTIDAD ".$TamanoBloqueTrading;
 								$IdOrdenVenta=EstablecerOrden("VENTA","$DivisaComparadoraMercado","$TamanoBloqueTrading", number_format($ValorIdealVenta, $DecimalesPrecision));
 								ColorTextoConsola("black","red");
-								echo "\n\r  Creando orden  VENTA:  #$IdOrdenVenta     VALOR      ".number_format($ValorIdealVenta,$DecimalesPrecision);
+								echo "\n\r  Creando orden  VENTA:  #$IdOrdenVenta     VALOR      ".number_format($ValorIdealVenta,$DecimalesPrecision)." CANTIDAD ".$TamanoBloqueTrading;
 								$GananciaOperacion=$ValorIdealVenta-$ValorIdealCompra;
 								$GananciaAcumulada+=$GananciaOperacion;
 								ColorTextoConsola("white","blue");

@@ -39,6 +39,7 @@ $MonedaValida=0;									//Asume que se debe ingresar una moneda para operar
 
 if ($MonedaSeleccionadaOperacion=="BCN")
 	{
+		//BCNBTC		100 BCN		0.0000000001
 		$MonedaValida=1;
 		$MonedaOperar="BCN";								//Codigo de la moneda que se desea operar
 		$DivisaComparadoraMercado="BCNBTC";  				//Codigo de moneda mediante el cual se encuentra su comparacion frente a otra divisa
@@ -49,7 +50,7 @@ if ($MonedaSeleccionadaOperacion=="BCN")
 		$ComisionOperador="0.1";  							//En porcentaje (Ej: 0.1 = 0.1%) indica la comision que sera descontada por el operador cuando se llene la orden
 		$SaldoMinimoSoporte="0.0002";						//Saldo minimo que se debe tener en la divisa de soporte para comprar mas divisas de las que se desea operar
 		$SaldoResidualSoporte=".0001";						//Si despues de realizar una operacion de trading se obtiene este excedente residual lo transfiere a la cuenta principal para asegurarlo
-		$TamanoBloqueTrading="3";							//Cantidad de bloques de divisas a negociar por cada interaccion.  Es un multiplicador con $SaldoMinimoTrading.  
+		$TamanoBloqueTrading="10";							//Cantidad de bloques de divisas a negociar por cada interaccion.  Es un multiplicador con $SaldoMinimoTrading.  
 															//Ej:  Para realizar una operacion de venta de un bloque (1) BCN se requieren minimo (100) BCN.  Es el bloque minimo a negociar
 															//	   Si se va entonces a negociar bloques de 2 entonces se debe subir a 200 el $SaldoMinimoTrading
 		$SaldoMinimoTrading=$TamanoBloqueTrading*100;		//Cantidad minima que se debe tener de la divisa a negociar para poder solicitar una venta de esta.  ESTA FORMULA PODRIA CAMBIAR POR CADA DIVISA!!!
@@ -58,20 +59,22 @@ if ($MonedaSeleccionadaOperacion=="BCN")
 
 if ($MonedaSeleccionadaOperacion=="ETH")
 	{
+		//ETHBTC		0.001 ETH	0.000001
 		$MonedaValida=1;
 		$MonedaOperar="ETH";
 		$DivisaComparadoraMercado="ETHBTC";
 		$DivisaDeSoporte="BTC";
 		$DecimalesPrecision=6;
-		$SensibilidadMercado=".000001";
-		$CambioOfertaMercado=".0001";
+		$SensibilidadMercado=".00001";
+		$CambioOfertaMercado=".000001";
 		$ComisionOperador="0.1";
 		$SaldoMinimoSoporte="0.0001";
-		$SaldoResidualSoporte=".00001";
-		$TamanoBloqueTrading="0.1";										
+		$SaldoResidualSoporte=".000005";
+		$TamanoBloqueTrading="0.010";										
 		$SaldoMinimoTrading=$TamanoBloqueTrading*1;
 		$CantMovimientosTendenciaEstable=5;
 	}
+		
 
 if ($MonedaValida==0)
 	{
