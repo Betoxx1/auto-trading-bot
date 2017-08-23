@@ -37,9 +37,10 @@
 	Salida de la funcion:
 		* Ejecucion infinita cada cierto numero de segundos para buscar en cada momento la posibilidad de venta y compra con los margenes de ganancia definidos.
 */
-function OperarDivisa_InferenciaSimple($MonedaOperar,$DivisaComparadoraMercado,$DivisaDeSoporte,$SensibilidadMercado,$CambioOfertaMercado,$ComisionOperador,$TamanoBloqueTrading,$SaldoMinimoTrading,$SaldoMinimoSoporte,$DecimalesPrecision,$SaldoResidualSoporte)
+function OperarDivisa_InferenciaSimple($MonedaOperar)
 	{	
 		global $IntervaloEjecucion,$AnchoConsola;
+		global $DivisaComparadoraMercado,$DivisaDeSoporte,$SensibilidadMercado,$CambioOfertaMercado,$ComisionOperador,$TamanoBloqueTrading,$SaldoMinimoTrading,$SaldoMinimoSoporte,$DecimalesPrecision,$SaldoResidualSoporte;
 		$UltimoValorIdealCompra=0;
 		$UltimoValorIdealVenta=0;
 		$GananciaAcumulada=0;

@@ -38,5 +38,6 @@ require ("include/z_motores.php");					//Motores de inferencia disponibles para 
 		OperarDivisa_InferenciaSimple(LISTA_DE_PARAMETROS);
 */
 
-OperarDivisa_InferenciaSimple($MonedaOperar,$DivisaComparadoraMercado,$DivisaDeSoporte,$SensibilidadMercado,$CambioOfertaMercado,$ComisionOperador,$TamanoBloqueTrading,$SaldoMinimoTrading,$SaldoMinimoSoporte,$DecimalesPrecision,$SaldoResidualSoporte);
+
+	OperarDivisa_InferenciaSimple($MonedaOperar);
 

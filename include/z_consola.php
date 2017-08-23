@@ -106,3 +106,31 @@ function ColorTextoConsola($Foreground="",$Background="")
 			}
 		echo "$ColorFinal";
 	}
+
+
+//######################################################################
+//######################################################################
+/*
+	Function: MensajeError
+	Presenta mensajes de error obtenidos durante la ejecucion de las operaciones sobre la API
+
+	Variables minimas de entrada:
+		Mensaje - Cadena con todo el mensaje que se debe presentar al usuario
+
+	Salida de la funcion:
+		* Mensaje formateado en la terminal
+
+	Ver tambien:
+		<ColorTextoConsola> <Separador>
+*/
+function MensajeError($Mensaje)
+	{
+		global $AnchoConsola;
+		ColorTextoConsola("red","cyan");
+		Separador("#",$AnchoConsola);
+		ColorTextoConsola("yellow","cyan");
+		echo " ATENCION: Ha ocurrido una excepcion en la ejecucion de la transaccion:\n\r";
+		ColorTextoConsola("red","cyan");
+		echo $Mensaje;
+		Separador("#",$AnchoConsola);		
+	}

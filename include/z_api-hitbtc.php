@@ -86,17 +86,19 @@ function EstablecerOrden($TipoOperacion,$CriptoMoneda,$Cantidad,$Valor)
 		$newOrder->setQuantity($Cantidad);
 		$newOrder->setPrice($Valor);
 
+		$EstadoError="";
 		try {
 			$order = $client->newOrder($newOrder);
 			return $order->getOrderId();
 			//var_dump($order->getStatus()); // new
 		} catch (\Hitbtc\Exception\RejectException $e) {
-			echo $e; // if creating order will rejected
+			$EstadoError=$e; // if creating order will rejected
 		} catch (\Hitbtc\Exception\InvalidRequestException $e) {
-			echo $e->getMessage(); // error in request
+			$EstadoError= $e->getMessage(); // error in request
 		} catch (\Exception $e) {
-			echo $e->getMessage(); // other error like network issue
+			$EstadoError= $e->getMessage(); // other error like network issue
 		}
+		if ($EstadoError!="")	MensajeError($EstadoError);
 	}
 
 

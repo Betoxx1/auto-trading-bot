@@ -24,7 +24,7 @@
 if (@$argv[1]=="")
 	{
 		ColorTextoConsola("blue");
-		echo "MONEDAS CON CONFIGURACIONES DISPONIBLES:\n\r   BCN = ByteCoin\n\r   ETH = Ethereum\n\r   XMR = Monero\n\r   LTC = LiteCoin\n\r   SC = SiaCoin\n\r";
+		echo "MONEDAS CON CONFIGURACIONES DISPONIBLES:\n\r   BCN = ByteCoin\n\r   XDN = DigitalNote\n\r   ETH = Ethereum\n\r   XMR = Monero\n\r   LTC = LiteCoin\n\r   SC = SiaCoin\n\r";
 		ColorTextoConsola("green");
 		$MonedaSeleccionadaOperacion = readline("Indique su eleccion: ");
 		echo 'Seleccionando configuraciones para: '.$MonedaSeleccionadaOperacion;
@@ -37,6 +37,7 @@ else
 //Configuraciones generales del Bot
 $MonedaValida=0;									//Asume que se debe ingresar una moneda para operar
 
+//Parametros de moneda: ByteCoin
 if ($MonedaSeleccionadaOperacion=="BCN")
 	{
 		//BCNBTC		100 BCN		0.0000000001
@@ -45,16 +46,36 @@ if ($MonedaSeleccionadaOperacion=="BCN")
 		$DivisaComparadoraMercado="BCNBTC";  				//Codigo de moneda mediante el cual se encuentra su comparacion frente a otra divisa
 		$DivisaDeSoporte="BTC";  							//Codigo de la moneda principal utilizada para comprar mas divisas de la moneda a operar 
 		$DecimalesPrecision=10;								//Cantidad de decimales utilizada para la precision de la moneda a comerciar
-		$SensibilidadMercado=".000000003";  				//Indica el valor sensible que debe ser superado por la diferencia entre el precio de venta y de compra actual de la moneda para lanzar una operacion
+		$SensibilidadMercado=".000000002";  				//Indica el valor sensible que debe ser superado por la diferencia entre el precio de venta y de compra actual de la moneda para lanzar una operacion
 		$CambioOfertaMercado=".0000000001";					//Valor utilizado para sumar o restar a los precios de compra y venta actuales y cambiar asi la oferta y demanda del mercado con cada orden nueva
 		$ComisionOperador="0.1";  							//En porcentaje (Ej: 0.1 = 0.1%) indica la comision que sera descontada por el operador cuando se llene la orden
 		$SaldoMinimoSoporte="0.0002";						//Saldo minimo que se debe tener en la divisa de soporte para comprar mas divisas de las que se desea operar
 		$SaldoResidualSoporte=".0001";						//Si despues de realizar una operacion de trading se obtiene este excedente residual lo transfiere a la cuenta principal para asegurarlo
-		$TamanoBloqueTrading="10";							//Cantidad de bloques de divisas a negociar por cada interaccion.  Es un multiplicador con $SaldoMinimoTrading.  
+		$TamanoBloqueTrading="2";							//Cantidad de bloques de divisas a negociar por cada interaccion.  Es un multiplicador con $SaldoMinimoTrading para saber que tener como minimo a la hora de operar. Cada moneda maneja sus bloques minimos.
 															//Ej:  Para realizar una operacion de venta de un bloque (1) BCN se requieren minimo (100) BCN.  Es el bloque minimo a negociar
 															//	   Si se va entonces a negociar bloques de 2 entonces se debe subir a 200 el $SaldoMinimoTrading
 		$SaldoMinimoTrading=$TamanoBloqueTrading*100;		//Cantidad minima que se debe tener de la divisa a negociar para poder solicitar una venta de esta.  ESTA FORMULA PODRIA CAMBIAR POR CADA DIVISA!!!
 		$CantMovimientosTendenciaEstable=5;					//Para motor de inferencia basado en tendencia (a la alza o baja) determina cuantos movimientos del mismo tipo son considerados para establecer una tendencia de moneda 
+	}
+
+//Parametros de moneda: DigitalNote
+if ($MonedaSeleccionadaOperacion=="XDN")
+	{
+		//XDNBTC		100 XDN		0.0000000001
+		$MonedaValida=1;
+		$MonedaOperar="XDN";								
+		$DivisaComparadoraMercado="XDNBTC";  				
+		$DivisaDeSoporte="BTC";  							
+		$DecimalesPrecision=10;								
+		$SensibilidadMercado=".000000002";  				
+		$CambioOfertaMercado=".0000000001";					
+		$ComisionOperador="0.1";  							
+		$SaldoMinimoSoporte="0.0002";						
+		$SaldoResidualSoporte=".0001";						
+		$TamanoBloqueTrading="1";							
+		$SaldoMinimoTrading=$TamanoBloqueTrading*100;		
+		$CantMovimientosTendenciaEstable=5;					
+
 	}
 
 if ($MonedaSeleccionadaOperacion=="ETH")
@@ -65,16 +86,16 @@ if ($MonedaSeleccionadaOperacion=="ETH")
 		$DivisaComparadoraMercado="ETHBTC";
 		$DivisaDeSoporte="BTC";
 		$DecimalesPrecision=6;
-		$SensibilidadMercado=".00001";
-		$CambioOfertaMercado=".000001";
+		$SensibilidadMercado="0.00001";
+		$CambioOfertaMercado="0.000001";
 		$ComisionOperador="0.1";
 		$SaldoMinimoSoporte="0.0001";
-		$SaldoResidualSoporte=".000005";
-		$TamanoBloqueTrading="0.010";										
+		$SaldoResidualSoporte="0.000005";
+		$TamanoBloqueTrading=1;										
 		$SaldoMinimoTrading=$TamanoBloqueTrading*1;
 		$CantMovimientosTendenciaEstable=5;
 	}
-		
+
 
 if ($MonedaValida==0)
 	{
