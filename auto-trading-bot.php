@@ -30,14 +30,8 @@ require ("include/z_api-".$API_Trader.".php");		//Funciones propias para operar 
 require ("include/z_divisas.php");					//Configuraciones basicas de divisa o moneda
 require ("include/z_motores.php");					//Motores de inferencia disponibles para tomar decisiones de compra y venta
 
-/*
-	--------------------------------------------------------------------
-	Llamada al hilo principal del bot segun el motor de inferencia asi:
-	--------------------------------------------------------------------
-	Opciones disponibles:
-		OperarDivisa_InferenciaSimple(LISTA_DE_PARAMETROS);
-*/
-
-
+//Llamada al hilo principal del bot segun el motor de inferencia
+if ($MotorSeleccionadoOperacion=="SIMPLE")
 	OperarDivisa_InferenciaSimple($MonedaOperar);
-
+if ($MotorSeleccionadoOperacion=="TENDENCIA")
+	OperarDivisa_InferenciaPorTendencia($MonedaOperar);

@@ -46,6 +46,7 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 		$GananciaAcumulada=0;
 		while(1==1)
 			{
+				ColorTextoConsola();
 				$Momento=date("Y-m-d H:i:s");
 				echo "\n\r\n\r";
 				Separador("=",$AnchoConsola);
@@ -92,7 +93,6 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 								$GananciaAcumulada+=$GananciaOperacion;
 								ColorTextoConsola("white","blue");
 								echo "\n\r  Ganancia       ORDEN: ".number_format(($GananciaOperacion*$SaldoMinimoTrading),$DecimalesPrecision)."     ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
-								ColorTextoConsola();
 
 								//Despues de establecer ordenes mira si hay saldos residuales en la divisa de soporte y los transfiere a la cuenta para reservarlos
 								//$SaldoDisponibleSoporte=ObtenerSaldoTrading("$DivisaDeSoporte","DISPONIBLE");
@@ -104,7 +104,6 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 								ColorTextoConsola("blue");
 								echo "\n\r  --> Sin saldos minimos para operar el mercado con seguridad <--";
 								echo "\n\r  Ganancia                               ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
-								ColorTextoConsola();
 							}
 					}
 				else
@@ -112,7 +111,6 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 						ColorTextoConsola("blue");
 						echo "\n\r  --> IGNORANDO cualquier operacion del mercado";
 						echo "\n\r  Ganancia                               ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
-						ColorTextoConsola();
 					}
 				sleep($IntervaloEjecucion);				
 			}
@@ -133,82 +131,59 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 	Salida de la funcion:
 		* Ejecucion infinita cada cierto numero de segundos para buscar en cada momento la posibilidad de venta y compra con los margenes de ganancia definidos.
 */
-function OperarDivisa_InferenciaPorTendencia($MonedaOperar,$DivisaComparadoraMercado,$DivisaDeSoporte,$SensibilidadMercado,$CambioOfertaMercado,$ComisionOperador,$TamanoBloqueTrading,$SaldoMinimoTrading,$SaldoMinimoSoporte,$DecimalesPrecision,$SaldoResidualSoporte)
+function OperarDivisa_InferenciaPorTendencia($MonedaOperar)
 	{	
 		global $IntervaloEjecucion,$AnchoConsola;
-		$UltimoValorIdealCompra=0;
-		$UltimoValorIdealVenta=0;
-		$GananciaAcumulada=0;
+		global $DivisaComparadoraMercado,$DivisaDeSoporte,$SensibilidadMercado,$CambioOfertaMercado,$ComisionOperador,$TamanoBloqueTrading,$SaldoMinimoTrading,$SaldoMinimoSoporte,$DecimalesPrecision,$SaldoResidualSoporte;
+		$UltimoValorBuyingBID="";
+		$UltimoValorSellingASK="";
+		$ArregloTendenciaCompra=array();
+		$ArregloTendenciaVenta=array();
+		$TiempoAnalisis=5;		//Tiempo en minutos para obtener tendencia general.  Usado 5 igual que en opciones binarias
+		$ElementosAnalisis=round(($TiempoAnalisis*60)/$IntervaloEjecucion);
 		while(1==1)
 			{
+				ColorTextoConsola();
 				$Momento=date("Y-m-d H:i:s");
-				echo "\n\r\n\r";
-				Separador("=",$AnchoConsola);
-				echo "\n\r                   ESTADO DEL MERCADO A: ".$Momento;
-				Separador("=",$AnchoConsola);
-				
+				//Obtiene estados de precios para la moneda y los almacena para consulta posterior
 				$ValorBuyingBID=ObtenerLimiteCompra("$DivisaComparadoraMercado");  //Obtiene el Buying Bid para la moneda
-				$ValorSellingASK=ObtenerLimiteVenta("$DivisaComparadoraMercado");  //Obtiene el Selling Ask para la moneda
-				$DiferenciaVentaCompra=$ValorSellingASK-$ValorBuyingBID;
-				
-				if ($UltimoValorIdealCompra!=$ValorBuyingBID)
+				$ValorSellingASK=ObtenerLimiteVenta("$DivisaComparadoraMercado");  //Obtiene el Selling Ask para la moneda					
+				//Analiza si esta a la alza o a la baja
+				if ($UltimoValorBuyingBID!="")
 					{
-						$ValorIdealCompra=$ValorBuyingBID + $CambioOfertaMercado;
-						$UltimoValorIdealCompra=$ValorIdealCompra;
+						if($ValorBuyingBID > $UltimoValorBuyingBID) //SUBIO
+							$ArregloTendenciaCompra[]="+";
+						if($ValorBuyingBID < $UltimoValorBuyingBID) //BAJO
+							$ArregloTendenciaCompra[]="-";					
+						if($ValorBuyingBID == $UltimoValorBuyingBID) //ESTABLE
+							$ArregloTendenciaCompra[]="_";
 					}
-				
-				if ($UltimoValorIdealVenta!=$ValorSellingASK)
-					{
-						$ValorIdealVenta=$ValorSellingASK - $CambioOfertaMercado;
-						$UltimoValorIdealVenta=$ValorIdealVenta;
-					}
-				
-				echo "\n\r  Buying BID: $ValorBuyingBID    Selling ASK: $ValorSellingASK";
-				echo "\n\r  Diferencia: ".number_format($DiferenciaVentaCompra,$DecimalesPrecision);
-				
-				if ($DiferenciaVentaCompra > $SensibilidadMercado)
-					{
-						$SaldoDisponible=ObtenerSaldoTrading("$MonedaOperar","DISPONIBLE");
-						$SaldoDisponibleSoporte=ObtenerSaldoTrading("$DivisaDeSoporte","DISPONIBLE");
-						Separador("-",$AnchoConsola);
-						ColorTextoConsola("black","yellow");
-						echo "\n\r  Saldo actual   $MonedaOperar:   ".$SaldoDisponible."     $DivisaDeSoporte:       ".number_format($SaldoDisponibleSoporte,$DecimalesPrecision);
-						ColorTextoConsola();
-						//Opera solamente cuando hay saldos disponibles para comprar y para vender asi garantizo que compro a un precio bajo pero lo vendo a uno mas alto al mismo tiempo (o cuando la orden de venta sea llenada)
-						if ($SaldoDisponible > $SaldoMinimoTrading && $SaldoDisponibleSoporte > $SaldoMinimoSoporte)
-							{
-								$IdOrdenCompra=EstablecerOrden("COMPRA","$DivisaComparadoraMercado","$TamanoBloqueTrading",number_format($ValorIdealCompra,$DecimalesPrecision));
-								ColorTextoConsola("black","green");
-								echo "\n\r  Creando orden  COMPRA: #$IdOrdenCompra     VALOR      ".number_format($ValorIdealCompra,$DecimalesPrecision);
-								$IdOrdenVenta=EstablecerOrden("VENTA","$DivisaComparadoraMercado","$TamanoBloqueTrading", number_format($ValorIdealVenta, $DecimalesPrecision));
-								ColorTextoConsola("black","red");
-								echo "\n\r  Creando orden  VENTA:  #$IdOrdenVenta     VALOR      ".number_format($ValorIdealVenta,$DecimalesPrecision);
-								$GananciaOperacion=$ValorIdealVenta-$ValorIdealCompra;
-								$GananciaAcumulada+=$GananciaOperacion;
-								ColorTextoConsola("white","blue");
-								echo "\n\r  Ganancia       ORDEN: ".number_format(($GananciaOperacion*$SaldoMinimoTrading),$DecimalesPrecision)."     ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
-								ColorTextoConsola();
 
-								//Despues de establecer ordenes mira si hay saldos residuales en la divisa de soporte y los transfiere a la cuenta para reservarlos
-								//$SaldoDisponibleSoporte=ObtenerSaldoTrading("$DivisaDeSoporte","DISPONIBLE");
-								//if ($SaldoDisponibleSoporte>$SaldoMinimoSoporte*3)
-								//	TransferirSaldo_TradingAMain("BTC",$SaldoResidualSoporte);
-							}
-						else
-							{
-								ColorTextoConsola("blue");
-								echo "\n\r  --> Sin saldos minimos para operar el mercado con seguridad <--";
-								echo "\n\r  Ganancia                               ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
-								ColorTextoConsola();
-							}
-					}
-				else
+				if ($UltimoValorSellingASK!="")
 					{
-						ColorTextoConsola("blue");
-						echo "\n\r  --> IGNORANDO cualquier operacion del mercado";
-						echo "\n\r  Ganancia                               ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
-						ColorTextoConsola();
+						if($ValorSellingASK > $UltimoValorSellingASK) //SUBIO
+							$ArregloTendenciaVenta[]="+";
+						if($ValorSellingASK < $UltimoValorSellingASK) //BAJO
+							$ArregloTendenciaVenta[]="-";					
+						if($ValorSellingASK == $UltimoValorSellingASK) //ESTABLE
+							$ArregloTendenciaVenta[]="_";	
 					}
-				sleep($IntervaloEjecucion);				
+				
+				Separador("=",$AnchoConsola);
+				echo "\n\r                RESUMEN DE TENDENCIAS A: ".$Momento;
+				VerArregloTendencia($ArregloTendenciaCompra);
+				VerArregloTendencia($ArregloTendenciaVenta);
+				Separador("=",$AnchoConsola);
+				
+				//Realiza operaciones cuando la tendencia es a la ALZA
+				
+
+				//Realiza operaciones cuando la tendencia es a la BAJA
+
+				
+				//Actualiza valores al momento para la siguiente iteracion
+				$UltimoValorBuyingBID=$ValorBuyingBID;
+				$UltimoValorSellingASK=$ValorSellingASK;
+				sleep($IntervaloEjecucion-8);
 			}
 	}

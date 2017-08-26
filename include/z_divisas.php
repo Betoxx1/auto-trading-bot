@@ -20,8 +20,25 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,MA 02110-1301,USA.
 */
 
-//Si no recibe la moneda a operar pregunta por ella
+
+
+//Si no recibe un motor con el cual operar pregunta por el
 if (@$argv[1]=="")
+	{
+		ColorTextoConsola("blue");
+		echo "MOTORES DE INFERENCIA DISPONIBLES:\n\r   1 = Simple (Inferencia por precios BID-ASK)\n\r   2 = Tendencia (Segun ultimos movimientos de moneda)\n\r";
+		ColorTextoConsola("green");
+		$MotorSeleccionadoOperacion = readline("Indique su eleccion: ");
+		if ($MotorSeleccionadoOperacion==1) $MotorSeleccionadoOperacion="SIMPLE";
+		if ($MotorSeleccionadoOperacion==2) $MotorSeleccionadoOperacion="TENDENCIA";
+		echo 'Seleccionando motor de inferencia: '.$MotorSeleccionadoOperacion;
+		ColorTextoConsola();
+	}
+else
+	$MotorSeleccionadoOperacion=$argv[1];
+
+//Si no recibe la moneda a operar pregunta por ella
+if (@$argv[2]=="")
 	{
 		ColorTextoConsola("blue");
 		echo "MONEDAS CON CONFIGURACIONES DISPONIBLES:\n\r   BCN = ByteCoin\n\r   XDN = DigitalNote\n\r   ETH = Ethereum\n\r   XMR = Monero\n\r   LTC = LiteCoin\n\r   SC = SiaCoin\n\r";
@@ -31,7 +48,8 @@ if (@$argv[1]=="")
 		ColorTextoConsola();
 	}
 else
-	$MonedaSeleccionadaOperacion=$argv[1];
+	$MonedaSeleccionadaOperacion=$argv[2];
+
 
 //DEFINICIONES DE LA OPERACION
 //Configuraciones generales del Bot

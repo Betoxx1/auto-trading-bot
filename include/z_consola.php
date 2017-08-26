@@ -134,3 +134,33 @@ function MensajeError($Mensaje)
 		echo $Mensaje;
 		Separador("#",$AnchoConsola);		
 	}
+
+
+
+//######################################################################
+//######################################################################
+/*
+	Function: VerArregloTendencia
+			  Presenta un arreglo de bytes por consola
+
+	Variables minimas de entrada:
+		* Arreglo
+
+	Salida de la funcion:
+		* Arreglo en pantalla
+*/
+function VerArregloTendencia(array $Arreglo)
+	{
+		global $AnchoConsola;
+		$CantidadElementos=count($Arreglo);
+		$InicioVisualizacion=0;
+		if ($CantidadElementos>$AnchoConsola)
+			$InicioVisualizacion=$CantidadElementos-$AnchoConsola;
+
+		ColorTextoConsola("red","white");
+		echo "\n\r";
+		for ($i=$InicioVisualizacion;$i<$CantidadElementos;$i++)
+			echo $Arreglo[$i];
+		ColorTextoConsola();
+	}
+
