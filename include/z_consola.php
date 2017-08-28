@@ -140,7 +140,7 @@ function MensajeError($Mensaje)
 //######################################################################
 //######################################################################
 /*
-	Function: VerArregloTendencia
+	Function: AnalizaArregloTendencia
 			  Presenta un arreglo de bytes por consola
 
 	Variables minimas de entrada:
@@ -149,18 +149,35 @@ function MensajeError($Mensaje)
 	Salida de la funcion:
 		* Arreglo en pantalla
 */
-function VerArregloTendencia(array $Arreglo)
+function AnalizaArregloTendencia(array $Arreglo,$Descripcion="",$ValorActual)
 	{
-		global $AnchoConsola;
+		global $AnchoConsola,$PrecioInicialVenta,$PrecioInicialCompra,$DecimalesPrecision;
+		$ConteoAlza=0;
+		$ConteoBaja=0;
+		$ConteoEstable=0;
 		$CantidadElementos=count($Arreglo);
 		$InicioVisualizacion=0;
 		if ($CantidadElementos>$AnchoConsola)
 			$InicioVisualizacion=$CantidadElementos-$AnchoConsola;
+		
+		$ValorInicialOperacion=$PrecioInicialVenta;
+		if ($Descripcion=="COMPRA:") $ValorInicialOperacion=$PrecioInicialCompra;
 
-		ColorTextoConsola("red","white");
+		ColorTextoConsola("red","white");		
 		echo "\n\r";
 		for ($i=$InicioVisualizacion;$i<$CantidadElementos;$i++)
-			echo $Arreglo[$i];
+			{
+				echo $Arreglo[$i];
+				if ($Arreglo[$i]=="+") $ConteoAlza++;
+				if ($Arreglo[$i]=="-") $ConteoBaja++;
+				if ($Arreglo[$i]=="_") $ConteoEstable++;
+			}
+		$Diferencia=$ValorInicialOperacion*1-$ValorActual*1;
+		$Signo="";
+		if ($Diferencia>0) $Signo="+";
+		echo "\n\r$Descripcion +:$ConteoAlza -:$ConteoBaja _:$ConteoEstable I:$ValorInicialOperacion F:$ValorActual";
+		ColorTextoConsola("blue","white");
+		echo " T:${Signo}".number_format($Diferencia,$DecimalesPrecision);
 		ColorTextoConsola();
+		
 	}
-

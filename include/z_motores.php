@@ -134,9 +134,12 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 function OperarDivisa_InferenciaPorTendencia($MonedaOperar)
 	{	
 		global $IntervaloEjecucion,$AnchoConsola;
+		global $PrecioInicialVenta,$PrecioInicialCompra;
 		global $DivisaComparadoraMercado,$DivisaDeSoporte,$SensibilidadMercado,$CambioOfertaMercado,$ComisionOperador,$TamanoBloqueTrading,$SaldoMinimoTrading,$SaldoMinimoSoporte,$DecimalesPrecision,$SaldoResidualSoporte;
 		$UltimoValorBuyingBID="";
 		$UltimoValorSellingASK="";
+		$PrecioInicialVenta=0;
+		$PrecioInicialCompra=0;
 		$ArregloTendenciaCompra=array();
 		$ArregloTendenciaVenta=array();
 		$TiempoAnalisis=5;		//Tiempo en minutos para obtener tendencia general.  Usado 5 igual que en opciones binarias
@@ -148,6 +151,13 @@ function OperarDivisa_InferenciaPorTendencia($MonedaOperar)
 				//Obtiene estados de precios para la moneda y los almacena para consulta posterior
 				$ValorBuyingBID=ObtenerLimiteCompra("$DivisaComparadoraMercado");  //Obtiene el Buying Bid para la moneda
 				$ValorSellingASK=ObtenerLimiteVenta("$DivisaComparadoraMercado");  //Obtiene el Selling Ask para la moneda					
+				//Establece precios de apertura al primer inicio del bot
+				if ($PrecioInicialVenta==0 && $PrecioInicialCompra==0)
+					{
+						$PrecioInicialVenta=$ValorSellingASK;
+						$PrecioInicialCompra=$ValorBuyingBID;
+					}
+
 				//Analiza si esta a la alza o a la baja
 				if ($UltimoValorBuyingBID!="")
 					{
@@ -171,8 +181,8 @@ function OperarDivisa_InferenciaPorTendencia($MonedaOperar)
 				
 				Separador("=",$AnchoConsola);
 				echo "\n\r                RESUMEN DE TENDENCIAS A: ".$Momento;
-				VerArregloTendencia($ArregloTendenciaCompra);
-				VerArregloTendencia($ArregloTendenciaVenta);
+				AnalizaArregloTendencia($ArregloTendenciaCompra,"COMPRA:",$ValorBuyingBID);
+				AnalizaArregloTendencia($ArregloTendenciaVenta ,"VENTA :",$ValorSellingASK);
 				Separador("=",$AnchoConsola);
 				
 				//Realiza operaciones cuando la tendencia es a la ALZA
