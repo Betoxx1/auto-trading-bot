@@ -172,9 +172,9 @@ function AnalizaArregloTendencia(array $Arreglo,$Descripcion="",$ValorActual)
 				if ($Arreglo[$i]=="-") $ConteoBaja++;
 				if ($Arreglo[$i]=="_") $ConteoEstable++;
 			}
-		$Diferencia=$ValorInicialOperacion*1-$ValorActual*1;
+		$Diferencia=$ValorActual*1-$ValorInicialOperacion*1;
 		$Signo="";
-		if ($Diferencia>0) $Signo="+";
+		if ($Diferencia>=0) $Signo="+";
 		echo "\n\r$Descripcion +:$ConteoAlza -:$ConteoBaja _:$ConteoEstable I:$ValorInicialOperacion F:$ValorActual";
 		ColorTextoConsola("blue","white");
 		echo " T:${Signo}".number_format($Diferencia,$DecimalesPrecision);
