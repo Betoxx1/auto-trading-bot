@@ -104,13 +104,13 @@ if ($MonedaSeleccionadaOperacion=="ETH")
 		$DivisaComparadoraMercado="ETHBTC";
 		$DivisaDeSoporte="BTC";
 		$DecimalesPrecision=6;
-		$SensibilidadMercado="0.00001";
+		$SensibilidadMercado="0.00005";
 		$CambioOfertaMercado="0.000001";
 		$ComisionOperador="0.1";
 		$SaldoMinimoSoporte="0.0001";
 		$SaldoResidualSoporte="0.000005";
-		$TamanoBloqueTrading=1;										
-		$SaldoMinimoTrading=$TamanoBloqueTrading*1;
+		$TamanoBloqueTrading=250;							//Bloques de 0.25 Eth			
+		$SaldoMinimoTrading=$TamanoBloqueTrading*$SaldoMinimoSoporte;
 		$CantMovimientosTendenciaEstable=5;
 	}
 

@@ -50,7 +50,7 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 				$Momento=date("Y-m-d H:i:s");
 				echo "\n\r\n\r";
 				Separador("=",$AnchoConsola);
-				echo "\n\r                   ESTADO DEL MERCADO A: ".$Momento;
+				echo "\n\r                ESTADO DEL MERCADO $DivisaComparadoraMercado A: ".$Momento;
 				Separador("=",$AnchoConsola);
 				
 				$ValorBuyingBID=ObtenerLimiteCompra("$DivisaComparadoraMercado");  //Obtiene el Buying Bid para la moneda
@@ -194,6 +194,6 @@ function OperarDivisa_InferenciaPorTendencia($MonedaOperar)
 				//Actualiza valores al momento para la siguiente iteracion
 				$UltimoValorBuyingBID=$ValorBuyingBID;
 				$UltimoValorSellingASK=$ValorSellingASK;
-				sleep($IntervaloEjecucion-8);
+				sleep($IntervaloEjecucion);
 			}
 	}
