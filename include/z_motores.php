@@ -77,8 +77,6 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 						$SaldoDisponible=ObtenerSaldoTrading("$MonedaOperar","DISPONIBLE");
 						$SaldoDisponibleSoporte=ObtenerSaldoTrading("$DivisaDeSoporte","DISPONIBLE");
 						Separador("-",$AnchoConsola);
-						ColorTextoConsola("black","yellow");
-						echo "\n\r  Saldo actual   $MonedaOperar:   ".$SaldoDisponible."     $DivisaDeSoporte:       ".number_format($SaldoDisponibleSoporte,$DecimalesPrecision);
 						ColorTextoConsola();
 						//Opera solamente cuando hay saldos disponibles para comprar y para vender asi garantizo que compro a un precio bajo pero lo vendo a uno mas alto al mismo tiempo (o cuando la orden de venta sea llenada)
 						if ($SaldoDisponible > $SaldoMinimoTrading && $SaldoDisponibleSoporte > $SaldoMinimoSoporte)
@@ -101,8 +99,15 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 							}
 						else
 							{
+								$EstadoSaldoTrading="OK";
+								$EstadoSaldoSoporte="OK";
+								if ($SaldoDisponible < $SaldoMinimoTrading)  $EstadoSaldoTrading=" --> NO CUMPLE <-- ";
+								if ($SaldoDisponibleSoporte < $SaldoMinimoSoporte)  $EstadoSaldoSoporte=" --> NO CUMPLE <-- ";
+								ColorTextoConsola("black","yellow");
+								echo "\n\r  Saldo $MonedaOperar:  Actual=".number_format($SaldoDisponible,$DecimalesPrecision)."  Requerido=".number_format($SaldoMinimoTrading,$DecimalesPrecision)." $EstadoSaldoTrading";
+								echo "\n\r  Saldo $DivisaDeSoporte:  Actual=".number_format($SaldoDisponibleSoporte,$DecimalesPrecision)."  Requerido=".number_format($SaldoMinimoSoporte,$DecimalesPrecision)." $EstadoSaldoSoporte";
 								ColorTextoConsola("blue");
-								echo "\n\r  --> Sin saldos minimos para operar el mercado con seguridad <--";
+								echo "\n\r  --> SIN SALDOS MINIMOS para operar el mercado con seguridad <--";
 								echo "\n\r  Ganancia                               ACUMULADA: ".number_format(($GananciaAcumulada*$SaldoMinimoTrading),$DecimalesPrecision)." - {$ComisionOperador}%";
 							}
 					}
