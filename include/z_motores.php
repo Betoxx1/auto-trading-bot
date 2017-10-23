@@ -99,10 +99,10 @@ function OperarDivisa_InferenciaSimple($MonedaOperar)
 							}
 						else
 							{
-								$EstadoSaldoTrading="OK";
-								$EstadoSaldoSoporte="OK";
-								if ($SaldoDisponible < $SaldoMinimoTrading)  $EstadoSaldoTrading=" --> NO CUMPLE <-- ";
-								if ($SaldoDisponibleSoporte < $SaldoMinimoSoporte)  $EstadoSaldoSoporte=" --> NO CUMPLE <-- ";
+								$EstadoSaldoTrading=" OK";
+								$EstadoSaldoSoporte=" OK";
+								if ($SaldoDisponible < $SaldoMinimoTrading)  $EstadoSaldoTrading=" NO CUMPLE";
+								if ($SaldoDisponibleSoporte < $SaldoMinimoSoporte)  $EstadoSaldoSoporte=" CUMPLE";
 								ColorTextoConsola("black","yellow");
 								echo "\n\r  Saldo $MonedaOperar:  Actual=".number_format($SaldoDisponible,$DecimalesPrecision)."  Requerido=".number_format($SaldoMinimoTrading,$DecimalesPrecision)." $EstadoSaldoTrading";
 								echo "\n\r  Saldo $DivisaDeSoporte:  Actual=".number_format($SaldoDisponibleSoporte,$DecimalesPrecision)."  Requerido=".number_format($SaldoMinimoSoporte,$DecimalesPrecision)." $EstadoSaldoSoporte";

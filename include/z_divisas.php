@@ -107,10 +107,10 @@ if ($MonedaSeleccionadaOperacion=="ETH")
 		$SensibilidadMercado="0.00005";
 		$CambioOfertaMercado="0.000001";
 		$ComisionOperador="0.1";
-		$SaldoMinimoSoporte="0.001";
+		$SaldoMinimoSoporte="0.0011";
 		$SaldoResidualSoporte="0.000005";
 		$TamanoBloqueTrading=250;							//Bloques de 0.25 Eth			
-		$SaldoMinimoTrading=($TamanoBloqueTrading*$SaldoMinimoSoporte)+0.01;
+		$SaldoMinimoTrading=($TamanoBloqueTrading*$SaldoMinimoSoporte)+0.05;
 		$CantMovimientosTendenciaEstable=5;
 	}
 
