@@ -96,6 +96,25 @@ if ($MonedaSeleccionadaOperacion=="XDN")
 
 	}
 
+//Parametros de moneda: LiteCoin (gracias a @ramefx)
+if ($MonedaSeleccionadaOperacion=="LTC")
+	{
+		//LTCBTC		0.001 LTC	0.000001
+		$MonedaValida=1;
+		$MonedaOperar="LTC";
+		$DivisaComparadoraMercado="LTCBTC";
+		$DivisaDeSoporte="BTC";
+		$DecimalesPrecision=6;
+		$SensibilidadMercado="0.00001";
+		$CambioOfertaMercado="0.000001";
+		$ComisionOperador="0.1";
+		$SaldoMinimoSoporte="0.0011";
+		$SaldoResidualSoporte="0.000005";
+		$TamanoBloqueTrading=100;							//Bloques de 0.05 LTC			
+		$SaldoMinimoTrading=($TamanoBloqueTrading*$SaldoMinimoSoporte)+0.01;
+		$CantMovimientosTendenciaEstable=5;
+	}
+
 if ($MonedaSeleccionadaOperacion=="ETH")
 	{
 		//ETHBTC		0.001 ETH	0.000001
