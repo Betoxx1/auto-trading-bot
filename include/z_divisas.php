@@ -41,7 +41,7 @@ else
 if (@$argv[2]=="")
 	{
 		ColorTextoConsola("blue");
-		echo "MONEDAS CON CONFIGURACIONES DISPONIBLES:\n\r   BCN = ByteCoin\n\r   XDN = DigitalNote\n\r   ETH = Ethereum\n\r   XMR = Monero\n\r   LTC = LiteCoin\n\r   SC = SiaCoin\n\r";
+		echo "\n\nMONEDAS CON CONFIGURACIONES DISPONIBLES:\n\r   BCN = ByteCoin\n\r   XDN = DigitalNote\n\r   ETH = Ethereum\n\r   XMR = Monero\n\r   LTC = LiteCoin\n\r   SC = SiaCoin\n\r";
 		ColorTextoConsola("green");
 		$MonedaSeleccionadaOperacion = readline("Indique su eleccion: ");
 		echo 'Seleccionando configuraciones para: '.$MonedaSeleccionadaOperacion;
@@ -104,12 +104,12 @@ if ($MonedaSeleccionadaOperacion=="ETH")
 		$DivisaComparadoraMercado="ETHBTC";
 		$DivisaDeSoporte="BTC";
 		$DecimalesPrecision=6;
-		$SensibilidadMercado="0.00005";
+		$SensibilidadMercado="0.00002";
 		$CambioOfertaMercado="0.000001";
 		$ComisionOperador="0.1";
 		$SaldoMinimoSoporte="0.0011";
 		$SaldoResidualSoporte="0.000005";
-		$TamanoBloqueTrading=250;							//Bloques de 0.25 Eth			
+		$TamanoBloqueTrading=100;							//Bloques de 250=0.25Eth	200=0.2Eth	100=0.1Eth	
 		$SaldoMinimoTrading=($TamanoBloqueTrading*$SaldoMinimoSoporte)+0.05;
 		$CantMovimientosTendenciaEstable=5;
 	}

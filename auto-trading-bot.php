@@ -21,6 +21,8 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,MA 02110-1301,USA.
 */
 
+date_default_timezone_set('America/Bogota');
+
 $IntervaloEjecucion=10;								//En segundos, tiempo de descanso del Bot antes de buscar nuevamente los cambios del mercado
 
 require ("include/config.php");						//Configuracion personal de llaves de API
@@ -37,4 +39,3 @@ if ($MotorSeleccionadoOperacion=="SIMPLE")
 	OperarDivisa_InferenciaSimple($MonedaOperar);
 if ($MotorSeleccionadoOperacion=="TENDENCIA")
 	OperarDivisa_InferenciaPorTendencia($MonedaOperar);
-
